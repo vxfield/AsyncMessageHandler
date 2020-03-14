@@ -4,11 +4,6 @@ using System.Threading.Tasks;
 
 namespace AsyncMessageHandler
 {
-    class Message
-    {
-        public string MessageText { get; set; }
-    }
-
     class Program
     {
         
@@ -63,19 +58,24 @@ namespace AsyncMessageHandler
         }
     }
 
-    interface IMessageHandler
+    public class Message
+    {
+        public string MessageText { get; set; }
+    }
+
+    public interface IMessageHandler
     {
         Task HandleAsync(Message message);
     }
 
-    enum MessageHandlingMode
+    public enum MessageHandlingMode
     {
         Unordered,
         OrderedAbortAllOnAnyFailure,
         OrderedContinueOnAnyFailure,
     }
 
-    class MessageHandler : IMessageHandler
+    public class MessageHandler : IMessageHandler
     {
         public MessageHandler(MessageHandlingMode handlingMode, Func<Message, Task> handlerMethod)
         {
